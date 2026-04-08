@@ -1,0 +1,66 @@
+# from env import StudentEnv
+# from models import Action
+# from openai import OpenAI
+# import os
+
+# API_BASE_URL = os.getenv("API_BASE_URL")
+# MODEL_NAME = os.getenv("MODEL_NAME")
+# HF_TOKEN = os.getenv("HF_TOKEN")
+
+# client = OpenAI(
+#     api_key=HF_TOKEN,
+#     base_url=API_BASE_URL
+# )
+
+# env = StudentEnv()
+# obs = env.reset()
+
+# print("[START]")
+
+# done = False
+# step_count = 0
+
+# actions = ["save", "invest_low", "invest_high", "spend", "learn"]
+
+# while not done and step_count < 20:
+
+#     # required API call
+#     client.chat.completions.create(
+#         model=MODEL_NAME,
+#         messages=[{"role": "user", "content": "choose action"}]
+#     )
+
+#     action_name = actions[step_count % len(actions)]
+
+#     obs, reward, done, _ = env.step(Action(action=action_name))
+
+#     print(f"[STEP] action={action_name} reward={reward.value} money={obs.money}")
+
+#     step_count += 1
+
+# print("[END]")
+
+from env import StudentEnv
+from models import Action
+
+env = StudentEnv()
+obs = env.reset()
+
+print("[START]")
+
+done = False
+step_count = 0
+
+actions = ["save", "invest_low", "invest_high", "spend", "learn"]
+
+while not done and step_count < 20:
+
+    action_name = actions[step_count % len(actions)]
+
+    obs, reward, done, _ = env.step(Action(action=action_name))
+
+    print(f"[STEP] action={action_name} reward={reward.value} money={obs.money}")
+
+    step_count += 1
+
+print("[END]")
